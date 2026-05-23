@@ -117,20 +117,26 @@ int main(){
 	}
 
 	NextTurn(&game);
-	while (true) {
-		printf("\033[2;1H\033[J");
-		printf("Starting game with seed: %u\n", seed); 
+
+	// initial render before any move
+	printf("\033[2;1H\033[J");
+	printf("Starting game with seed: %u\n", seed);
+	RenderBoard(&game);
+	RenderPlayerList(&game);
+
+	while (GetWinner(&game) == NULL) {
+		printf("Press enter to roll...");
+		while (getchar() != '\n');
+
 		MoveResult moveResult = MakeMove(&game, GetRollDice(&game));
 		NextTurn(&game);
+
+		printf("\033[2;1H\033[J");
+		printf("Starting game with seed: %u\n", seed);
 		RenderBoard(&game);
-		RenderMoveResult(moveResult);
 		RenderPlayerList(&game);
-		if(GetWinner(&game)==NULL){
-			printf("Press enter to roll...");
-			while( getchar() != '\n' );
-		}else{
-			break;
-		}
+		RenderMoveResult(moveResult);
 	}
-	printf("%c WON!\n",GetWinner(&game)->avatar); 
+
+	printf("%c WON!\n", GetWinner(&game)->avatar);
 };
