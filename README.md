@@ -1,2 +1,9 @@
-# HolySigmarBlessThisRavagedBody
-Pursuant to a C Snakes and Ladders
+# CCCCCC
+
+## Installation
+```
+git clone https://github.com/iwkr/CCCCC/
+cd CCCCC
+./runopt
+./build/gameopt
+```
