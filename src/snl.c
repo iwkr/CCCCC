@@ -112,6 +112,8 @@ void InitGame(Game* game, uint32_t seed){
 	game->randHead = seed;
 	game->lastPlayerId = 0;
 	game->turn=0;
+	game->currTurn=0;
+	game->currRound=0;
 	GenJumpTable(game);
 }
 
@@ -155,6 +157,7 @@ bool  RemovePlayer(Game* game, Player* player){
 }
 static bool NextRound(Game* game){
 		// not yet set, first match
+		game->currRound++;
 		for(int i = 0;i<MAX_PLAYERS;++i){
 			if(game->playerSlots[i]!=0){
 				game->turn = game->playerSlots[i];
@@ -171,6 +174,7 @@ bool NextTurn(Game* game){
 	if (game->turn == 0){
 		return NextRound(game);
 	} else {
+		game->currTurn++;
 		// set, first match after curr
 		int curri = 0;
 	
@@ -228,4 +232,12 @@ Player* GetWinner(Game* game){
 		}
 	}
 	return NULL;
+}
+
+int GetRound(Game* game){
+	return game->currRound;
+}
+
+int GetTurn(Game* game){
+	return game->currTurn;
 }

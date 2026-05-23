@@ -5,7 +5,7 @@
 #include <time.h>
 #include "snl.h"
 #include "tutils.h"
-#include<unistd.h>
+#include <unistd.h>
 
 #define SQUARE_WIDTH_PTS 4
 #define CHARS_PER_PT 4
@@ -27,7 +27,7 @@ static void InitRenderer(){
 	strcat(botBorder, HZN BOX_UL);
 }
 static void RenderPlayerList(Game* game){
-	printf("PLAYERS:\n");
+	printf("NEXT UP:\n");
 	for (int i = 0; i<MAX_PLAYERS;++i){
 		if(game->playerSlots[i] == 0) {
 			continue;
@@ -132,10 +132,12 @@ int main(){
 		NextTurn(&game);
 
 		printf("\033[2;1H\033[J");
-		printf("Starting game with seed: %u\n", seed);
+		int turn = GetTurn(&game);
+		int round = GetRound(&game);
+		printf("Starting game with seed: %u, turn %d, round %d\n",seed,turn,round);
 		RenderBoard(&game);
-		RenderPlayerList(&game);
 		RenderMoveResult(moveResult);
+		RenderPlayerList(&game);
 	}
 
 	printf("%c WON!\n", GetWinner(&game)->avatar);

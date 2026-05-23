@@ -23,6 +23,8 @@ struct Game {
 	//List of Player pointers (NULL if slot empty)
 	Player* playerSlots[MAX_PLAYERS];
 	int lastPlayerId;
+	int currRound; 
+	int currTurn;
 	//result of last rand roll
 	uint32_t randHead;
 	//Isomorphic to board, one of:
@@ -51,4 +53,6 @@ bool NextTurn(Game* game);
 int GetRollDice(Game* game);
 MoveResult MakeMove(Game* game, int move);
 Player* GetWinner(Game* game);
+int GetTurn(Game* game);
+int GetRound(Game* game);
 #endif
