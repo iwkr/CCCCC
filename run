@@ -1,0 +1,1 @@
+gcc -O0 -g src/game.c src/snl.c -o build/game 
