@@ -38,6 +38,17 @@ static void RenderPlayerList(Game* game){
 	}
 	printf("\n");
 }
+//returns first char in input line, ignores the rest
+static int GetLineChar(){
+    int c = getchar();
+    if (c == EOF) return EOF;
+
+    int ch;
+    while ((ch = getchar()) != '\n' && ch != EOF)
+        ;
+
+    return c;
+}
 
 static void RenderMoveResult(MoveResult res){
 	printf("Player (%c) rolled a %d", res.player->avatar, res.roll);
@@ -95,13 +106,6 @@ static void RenderBoard(Game* game){
 	}
 }
 
-static char GetCharAndFlush(){
-	char discard;
-	char c = getchar();
-    	while ((discard = getchar()) != '\n' && discard != EOF);
-	return c;
-}
-
 // ~~ main
 int main(){
 	//init game
@@ -112,12 +116,28 @@ int main(){
 	// init renderer
 	// add players 
 	Player players[MAX_PLAYERS];
-	for(int i = 0; i < 4; ++i){
-		AddPlayer(&game, &players[i],'A'+i);
+
+	//for(int i = 0; i < 4; ++i){
+	//	AddPlayer(&game, &players[i],'A'+i);
+	//}
+	printf("Number of players? [2-%d]->",MAX_PLAYERS);
+	int numPlayersChoice = GetLineChar() - '0';
+	while (numPlayersChoice<MIN_PLAYERS || numPlayersChoice>MAX_PLAYERS){
+		printf("Please choose [2-%d]->",MAX_PLAYERS);
+		numPlayersChoice = GetLineChar() - '0';
 	}
-
+	bool taken[128] = {0};
+	for(int p = 0; p<numPlayersChoice; ++p){
+		printf("Player %d symbol?->", p+1);
+		int c = GetLineChar(); 
+		while (!((c >= 33 && c <= 126) && !(c >= '0' && c <= '9')) || taken[c]){
+			printf("Try something else ->"); 
+			c = GetLineChar();
+		}
+		taken[c] = true;
+		AddPlayer(&game, &players[p], c);
+	}
 	NextTurn(&game);
-
 	// initial render before any move
 	printf("\033[2;1H\033[J");
 	printf("Starting game with seed: %u\n", seed);
