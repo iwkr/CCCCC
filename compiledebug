@@ -1,0 +1,2 @@
+mkdir -p build
+gcc -g -O0 src/game.c src/snl.c -o build/gamedebug

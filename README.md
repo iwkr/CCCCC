@@ -4,6 +4,6 @@
 ```
 git clone https://github.com/iwkr/CCCCC/
 cd CCCCC
-./runopt
+./compile
 ./build/gameopt
 ```

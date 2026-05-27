@@ -1,2 +1,0 @@
-mkdir -p build
-gcc src/game.c src/snl.c -o build/gameopt
