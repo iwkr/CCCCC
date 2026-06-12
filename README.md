@@ -4,7 +4,6 @@
 ```
 git clone https://github.com/iwkr/CCCCC/
 cd CCCCC
-chmod +x ./compile
-./compile
+make
 ./build/game
 ```

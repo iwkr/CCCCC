@@ -13,6 +13,8 @@ all: build/game
 debug: CFLAGS += $(DEBUG_FLAGS)
 debug: build/game 
 
-build/game: src/game.c src/snl.c
+build/game: src/game.c src/snl.c | build
 	$(CC) $(CFLAGS) src/game.c src/snl.c -o build/game
 
+build:
+	mkdir -p build
