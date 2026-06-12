@@ -1,10 +1,9 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
 #include "snl.h"
 #include <assert.h>
-#include "tutils.h"
+#include <stdbool.h>
 
 #define NUM_SNAKES 5
 #define NUM_LADDERS 5
@@ -44,7 +43,6 @@ static Coords IdxToCoords(int idx){
 	int x = y%2==0?BOARD_WIDTH-nx:nx+1;
 	return (Coords){x,y};
 }
-static bool CoordsEq(Coords a, Coords b){ return a.x==b.x&&a.y==b.y; }
 
 // get distance between two points
 static int TaxiDistance(int idxa, int idxb){
@@ -164,6 +162,7 @@ static bool NextRound(Game* game){
 				return true;
 			}
 		}
+		return false;
 }
 bool NextTurn(Game* game){
 	// if 0 players error out

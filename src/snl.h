@@ -9,7 +9,8 @@
 
 #define MAX_PLAYERS 4
 #define MIN_PLAYERS 2
-
+#include <stdbool.h>
+#include <stdint.h>
 typedef struct Game Game;
 typedef struct Player Player;
 typedef struct MoveResult MoveResult;

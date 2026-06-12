@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
+#include <stdbool.h>
 #include <time.h>
 #include "snl.h"
 #include "tutils.h"
@@ -42,7 +43,6 @@ static void RenderPlayerList(Game* game){
 static int GetLineChar(){
     int c = getchar();
     if (c == EOF) return EOF;
-
     int ch;
     while ((ch = getchar()) != '\n' && ch != EOF)
         ;
@@ -82,7 +82,6 @@ static void RenderBoard(Game* game){
 		for(int j=0;j<BOARD_WIDTH;j++){
 			int idx = ascending ? ++i : i--;
 			int jump = game->jumpTable[idx];
-			char* squareString = "%s";
 			char playerString[MAX_PLAYERS*10] = ""; 
 			// check if any players on this square
 			for(int i = 0; i<MAX_PLAYERS; ++i){
